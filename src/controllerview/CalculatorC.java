@@ -6,35 +6,25 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 public class CalculatorC implements Initializable {
     private Stage stage;
     @FXML
-    private Button btn_0;
+    private TextField txt_input;
+    private Stack<String> stack = new Stack<String>();
+    private StringBuilder stringBuilder = new StringBuilder();
     @FXML
-    private Button btn_1;
-    @FXML
-    private Button btn_2;
-    @FXML
-    private Button btn_3;
-    @FXML
-    private Button btn_4;
-    @FXML
-    private Button btn_5;
-    @FXML
-    private Button btn_6;
-    @FXML
-    private Button btn_7;
-    @FXML
-    private Button btn_8;
-    @FXML
-    private Button btn_9;
+    private TextArea txt;
 
 
 
@@ -48,24 +38,80 @@ public class CalculatorC implements Initializable {
             ctrl.stage = stage;
 
             stage.setTitle("Calculator");
-            stage.setScene(new Scene(root, 600, 500));
+            stage.setScene(new Scene(root, 650, 500));
             stage.show();
         }
         catch (IOException e) {
-            System.err.println("Something wrong with LoginV.fxml: " + e.getMessage());
+            System.err.println("Something wrong with calculator.fxml: " + e.getMessage());
             e.printStackTrace(System.err);
         }
     }
 
-    @FXML
-    private void clickButton(MouseEvent event) {
-        Object node = event.getSource(); //returns the object that generated the event
-        //since the returned object is a Button we can do a typecast
-        Button btn = (Button)node;
-        String s = btn.getText();
-        System.out.println(s);
+    public void push()
+    {
+        txt.setText(stack.toString());
     }
 
+    public void number0()
+    {
+        stringBuilder.append(0);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number1() {
+        stringBuilder.append(1);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number2() {
+        stringBuilder.append(2);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number3() {
+        stringBuilder.append(3);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number4() {
+        stringBuilder.append(4);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number5() {
+        stringBuilder.append(5);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number6() {
+        stringBuilder.append(6);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number7() {
+        stringBuilder.append(7);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number8() {
+        stringBuilder.append(8);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void number9() {
+        stringBuilder.append(9);
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void punkt()
+    {
+        stringBuilder.append(".");
+        txt_input.setText(stringBuilder.toString());
+    }
+    public void enter()
+    {
+        if (txt_input.equals(""))
+        {
+            System.out.println("Keine Eingabe!");
+        }
+
+        else {
+            stack.push(txt_input.getText());
+            txt_input.setText("");
+            stringBuilder.delete(0, stringBuilder.length());
+            push();
+        }
+    }
 
 
     @Override
