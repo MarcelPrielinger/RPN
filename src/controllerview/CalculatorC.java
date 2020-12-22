@@ -21,7 +21,7 @@ public class CalculatorC implements Initializable {
     private Stage stage;
     @FXML
     private TextField txt_input;
-    private Stack<String> stack = new Stack<String>();
+    private Stack<Double> stack = new Stack<Double>();
     private StringBuilder stringBuilder = new StringBuilder();
     @FXML
     private TextArea txt;
@@ -46,6 +46,15 @@ public class CalculatorC implements Initializable {
             System.err.println("Something wrong with calculator.fxml: " + e.getMessage());
             e.printStackTrace(System.err);
         }
+    }
+    public String txt_stage(Stack<Double> stack1)
+    {
+        StringBuilder stringBuilder1 = new StringBuilder();
+        for(int i = stack1.size()-1; i >= 0;i--)
+        {
+            stringBuilder1.append(stack1.elementAt(i) + "\n");
+        }
+        return stringBuilder1.toString();
     }
 
     public void number0()
@@ -109,8 +118,7 @@ public class CalculatorC implements Initializable {
     {
         if (stringBuilder.toString().equals(""))
         {
-            System.out.println("Keine Eingabe!");
-            txt_exception.setText("Keine Eingabe!");
+
         }
         else if(stringBuilder.toString().contains("..") || stringBuilder.indexOf(".") == stringBuilder.length()-1 || stringBuilder.indexOf(".") == 0)
         {
@@ -121,8 +129,8 @@ public class CalculatorC implements Initializable {
         }
         else {
             txt_exception.setText("");
-            stack.push(String.format("%s%n",stringBuilder));
-            txt.setText(stack.toString());
+            stack.push(Double.parseDouble(txt_input.getText()));
+            txt.setText(txt_stage(stack));
             txt_input.setText("");
             stringBuilder.delete(0, stringBuilder.length());
         }
@@ -130,35 +138,151 @@ public class CalculatorC implements Initializable {
 
     public void btn_c()
     {
-        while (!stack.empty())
-        {
+        try {
             txt_exception.setText("");
-            stack.pop();
+            while (!stack.empty()) {
+                stack.pop();
+            }
             txt_input.setText("");
             stringBuilder.delete(0, stringBuilder.length());
-            txt.setText(stack.toString());
+            txt.setText("");
+        }
+        catch (Exception e)
+        {
+            txt_exception.setText("Exception found!");
         }
     }
     public void btn_ce()
     {
-        txt_exception.setText("");
-        txt_input.setText("");
-        stringBuilder.delete(0, stringBuilder.length());
+        try {
+            txt_exception.setText("");
+            txt_input.setText("");
+            stringBuilder.delete(0, stringBuilder.length());
+        }
+        catch (Exception e)
+        {
+            txt_exception.setText("Exception found!");
+        }
     }
 
     public void plus()
     {
-        if(!stringBuilder.toString().equals(""))
-        {
-            stack.push(String.format("%s%n",stringBuilder));
-            txt_input.setText("");
-            stringBuilder.delete(0, stringBuilder.length());
-        }
+        enter();
         try {
-            double n1 = Double.parseDouble(String.valueOf(stringBuilder));
-            double n2 = Double.parseDouble(stack.pop());
-            double result = n1 + n2;
-            stack.push(String.valueOf(result));
+            if(stack.size() < 2)
+            {
+                txt_exception.setText("Not enough values!");
+            }
+            else {
+                enter();
+                double n1 = stack.pop();
+                double n2 = stack.pop();
+                double result = n1 + n2;
+                stack.push(result);
+                txt.setText(txt_stage(stack));
+            }
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.printf("ArithmeticException");
+        }
+    }
+    public void minus()
+    {
+        enter();
+        try {
+            if(stack.size() < 2)
+            {
+                txt_exception.setText("Not enough values!");
+            }
+            else {
+                enter();
+                double n1 = stack.pop();
+                double n2 = stack.pop();
+                double result = n2 - n1;
+                stack.push(result);
+                txt.setText(txt_stage(stack));
+            }
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.printf("ArithmeticException");
+        }
+    }
+    public void mal()
+    {
+        enter();
+        try {
+            if(stack.size() < 2)
+            {
+                txt_exception.setText("Not enough values!");
+            }
+            else {
+                enter();
+                double n1 = stack.pop();
+                double n2 = stack.pop();
+                double result = n1 * n2;
+                stack.push(result);
+                txt.setText(txt_stage(stack));
+            }
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.printf("ArithmeticException");
+        }
+    }
+    public void durch()
+    {
+        enter();
+        try {
+            if(stack.size() < 2)
+            {
+                txt_exception.setText("Not enough values!");
+            }
+            else {
+                enter();
+                double n1 = stack.pop();
+                double n2 = stack.pop();
+                double result = n2 / n1;
+                stack.push(result);
+                txt.setText(txt_stage(stack));
+            }
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.printf("ArithmeticException");
+        }
+    }
+    public void kehrwert()
+    {
+        try
+        {
+            double n1 = stack.pop();
+            double result = 1/n1;
+            stack.push(result);
+            txt.setText(txt_stage(stack));
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.printf("ArithmeticException");
+        }
+    }
+
+    public void tausch()
+    {
+        try {
+            if(stack.size() < 2)
+            {
+                txt_exception.setText("Not enough values!");
+            }
+            else {
+                enter();
+                double n1 = stack.pop();
+                double n2 = stack.pop();
+                stack.push(n1);
+                stack.push(n2);
+                txt.setText(txt_stage(stack));
+            }
         }
         catch (ArithmeticException e)
         {

@@ -83,7 +83,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Button>
-      <Button fx:id="btn_kehrwert" minWidth="94.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="98.0" text="1/x" GridPane.columnIndex="4" GridPane.rowIndex="5">
+      <Button fx:id="btn_kehrwert" minWidth="94.0" mnemonicParsing="false" onAction="#kehrwert" prefHeight="96.0" prefWidth="98.0" text="1/x" GridPane.columnIndex="4" GridPane.rowIndex="5">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
@@ -95,7 +95,7 @@
       </Button>
       <Button fx:id="btn_ce" mnemonicParsing="false" onAction="#btn_ce" prefHeight="100.0" prefWidth="100.0" text="CE" GridPane.columnIndex="5" GridPane.rowIndex="2">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
       </Button>
       <Button fx:id="btn_p" mnemonicParsing="false" onAction="#plus" prefHeight="100.0" prefWidth="100.0" text="+" GridPane.columnIndex="5" GridPane.rowIndex="3">
@@ -103,17 +103,17 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Button>
-      <Button fx:id="btn_minus" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="-" GridPane.columnIndex="5" GridPane.rowIndex="4">
+      <Button fx:id="btn_minus" mnemonicParsing="false" onAction="#minus" prefHeight="100.0" prefWidth="100.0" text="-" GridPane.columnIndex="5" GridPane.rowIndex="4">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Button>
-      <Button fx:id="btn_durch" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="/" GridPane.columnIndex="4" GridPane.rowIndex="4">
+      <Button fx:id="btn_durch" mnemonicParsing="false" onAction="#durch" prefHeight="100.0" prefWidth="100.0" text="/" GridPane.columnIndex="4" GridPane.rowIndex="4">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Button>
-      <Button fx:id="btn_mal" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="*" GridPane.columnIndex="5" GridPane.rowIndex="5">
+      <Button fx:id="btn_mal" mnemonicParsing="false" onAction="#mal" prefHeight="100.0" prefWidth="100.0" text="*" GridPane.columnIndex="5" GridPane.rowIndex="5">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
@@ -125,8 +125,8 @@
       </Button>
       <TextField fx:id="txt_input" minWidth="200.0" prefHeight="26.0" prefWidth="20.0" />
       <TextArea fx:id="txt" minHeight="285.0" minWidth="20.0" prefHeight="285.0" prefWidth="251.0" GridPane.rowIndex="2" />
-      <Label fx:id="txt_exception" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" />
-      <Button fx:id="btn_tausch" minWidth="184.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="184.0" text="x &lt;-&gt; y" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <Label fx:id="txt_exception" minWidth="185.0" prefHeight="26.0" prefWidth="185.0" GridPane.columnIndex="3" />
+      <Button fx:id="btn_tausch" minWidth="184.0" mnemonicParsing="false" onAction="#tausch" prefHeight="96.0" prefWidth="184.0" text="x &lt;-&gt; y" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
