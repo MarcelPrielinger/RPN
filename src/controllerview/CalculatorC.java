@@ -25,7 +25,8 @@ public class CalculatorC implements Initializable {
     private StringBuilder stringBuilder = new StringBuilder();
     @FXML
     private TextArea txt;
-
+    @FXML
+    private Label txt_exception;
 
 
     public static void show(Stage stage) {
@@ -47,72 +48,123 @@ public class CalculatorC implements Initializable {
         }
     }
 
-    public void push()
-    {
-        txt.setText(stack.toString());
-    }
-
     public void number0()
     {
+        txt_exception.setText("");
         stringBuilder.append(0);
         txt_input.setText(stringBuilder.toString());
     }
     public void number1() {
+        txt_exception.setText("");
         stringBuilder.append(1);
         txt_input.setText(stringBuilder.toString());
     }
     public void number2() {
+        txt_exception.setText("");
         stringBuilder.append(2);
         txt_input.setText(stringBuilder.toString());
     }
     public void number3() {
+        txt_exception.setText("");
         stringBuilder.append(3);
         txt_input.setText(stringBuilder.toString());
     }
     public void number4() {
+        txt_exception.setText("");
         stringBuilder.append(4);
         txt_input.setText(stringBuilder.toString());
     }
     public void number5() {
+        txt_exception.setText("");
         stringBuilder.append(5);
         txt_input.setText(stringBuilder.toString());
     }
     public void number6() {
+        txt_exception.setText("");
         stringBuilder.append(6);
         txt_input.setText(stringBuilder.toString());
     }
     public void number7() {
+        txt_exception.setText("");
         stringBuilder.append(7);
         txt_input.setText(stringBuilder.toString());
     }
     public void number8() {
+        txt_exception.setText("");
         stringBuilder.append(8);
         txt_input.setText(stringBuilder.toString());
     }
     public void number9() {
+        txt_exception.setText("");
         stringBuilder.append(9);
         txt_input.setText(stringBuilder.toString());
     }
     public void punkt()
     {
+        txt_exception.setText("");
         stringBuilder.append(".");
         txt_input.setText(stringBuilder.toString());
     }
     public void enter()
     {
-        if (txt_input.equals(""))
+        if (stringBuilder.toString().equals(""))
         {
             System.out.println("Keine Eingabe!");
+            txt_exception.setText("Keine Eingabe!");
         }
-
-        else {
-            stack.push(txt_input.getText());
+        else if(stringBuilder.toString().contains("..") || stringBuilder.indexOf(".") == stringBuilder.length()-1 || stringBuilder.indexOf(".") == 0)
+        {
+            System.out.println("Falsche Eingabe!");
+            txt_exception.setText("Falsche Eingabe!");
             txt_input.setText("");
             stringBuilder.delete(0, stringBuilder.length());
-            push();
+        }
+        else {
+            txt_exception.setText("");
+            stack.push(String.format("%s%n",stringBuilder));
+            txt.setText(stack.toString());
+            txt_input.setText("");
+            stringBuilder.delete(0, stringBuilder.length());
         }
     }
 
+    public void btn_c()
+    {
+        while (!stack.empty())
+        {
+            txt_exception.setText("");
+            stack.pop();
+            txt_input.setText("");
+            stringBuilder.delete(0, stringBuilder.length());
+            txt.setText(stack.toString());
+        }
+    }
+    public void btn_ce()
+    {
+        txt_exception.setText("");
+        txt_input.setText("");
+        stringBuilder.delete(0, stringBuilder.length());
+    }
+
+    public void plus()
+    {
+        if(!stringBuilder.toString().equals(""))
+        {
+            stack.push(String.format("%s%n",stringBuilder));
+            txt_input.setText("");
+            stringBuilder.delete(0, stringBuilder.length());
+        }
+        try {
+            double n1 = Double.parseDouble(String.valueOf(stringBuilder));
+            double n2 = Double.parseDouble(stack.pop());
+            double result = n1 + n2;
+            stack.push(String.valueOf(result));
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.printf("ArithmeticException");
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
